@@ -121,12 +121,14 @@ open class RSSelectionMenu<T>: UIViewController, UIPopoverPresentationController
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        setupViews()
-        setupLayout()        
+//        setupViews()
+//        setupLayout()
     }
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupViews()
+        setupLayout()
         self.tableView?.reload()
         if let handler = onWillAppear { handler() }
     }
@@ -189,14 +191,20 @@ open class RSSelectionMenu<T>: UIViewController, UIPopoverPresentationController
             var tableViewSize = CGSize.zero
             
             if UIDevice.current.userInterfaceIdiom == .phone {
-            
+            print("phone")
                 if UIApplication.shared.statusBarOrientation == .portrait {
                     tableViewSize = CGSize(width: backgroundView.frame.size.width - 80, height: backgroundView.frame.size.height - 260)
+                    print("portrait")
+                    print(tableViewSize)
                 }else {
                     tableViewSize = CGSize(width: backgroundView.frame.size.width - 200, height: backgroundView.frame.size.height - 100)
+                    print("landscape")
+                        print(tableViewSize)
                 }
             }else {
+                print("iPad")
                 tableViewSize = CGSize(width: backgroundView.frame.size.width - 300, height: backgroundView.frame.size.height - 400)
+                print("tableViewSize")
             }
             self.tableView?.frame.size = tableViewSize
             self.tableView?.center = self.backgroundView.center
